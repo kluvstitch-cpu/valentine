@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Question for Dynara</title>
+
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #2d0b59, #4a148c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+
+  .card {
+    background: white;
+    width: 90%;
+    max-width: 360px;
+    padding: 30px 22px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    position: relative;
+  }
+
+  .decor {
+    font-size: 22px;
+    opacity: 0.55;
+  }
+
+  h1 {
+    color: #4a148c;
+    font-size: 22px;
+    margin: 16px 0 10px;
+  }
+
+  p.subtitle {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 26px;
+  }
+
+  .buttons {
+    position: relative;
+    height: 130px;
+  }
+
+  button {
+    border: none;
+    border-radius: 18px;
+    padding: 14px 28px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    position: absolute;
+  }
+
+  #yesBtn {
+    background: #4a148c;
+    color: white;
+    left: 0;
+    bottom: 0;
+  }
+
+  #noBtn {
+    background: #e0e0e0;
+    color: #333;
+    right: 0;
+    top: 0;
+  }
+
+  #message {
+    margin-top: 22px;
+    font-size: 15px;
+    color: #4a148c;
+    min-height: 22px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="decor">🌸 💜 🌸</div>
+
+  <h1>Dynara</h1>
+  <p class="subtitle">
+    Would you be my Valentine?<br>
+    Simple question lang, no pressure.
+  </p>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <div id="message"></div>
+
+  <div class="decor" style="margin-top:16px;">🌷 💜 🌷</div>
+</div>
+
+<script>
+  const noMessages = [
+    "Are you sure?",
+    "Take your time muna 🙂",
+    "No pressure at all.",
+    "Just wanted to ask properly.",
+    "Think about it for a second.",
+    "I promise, no hard feelings.",
+    "Still a no?",
+    "It’s okay to say yes, you know 😄",
+    "Last try — honest question.",
+    "Alright… checking one more time."
+  ];
+
+  let count = 0;
+
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const msg = document.getElementById("message");
+
+  function randomPosition() {
+    return Math.floor(Math.random() * 60);
+  }
+
+  noBtn.addEventListener("click", () => {
+    msg.textContent = noMessages[count % noMessages.length];
+    count++;
+
+    yesBtn.style.left = noBtn.style.left;
+    yesBtn.style.top = noBtn.style.top;
+    yesBtn.style.right = noBtn.style.right;
+    yesBtn.style.bottom = noBtn.style.bottom;
+
+    noBtn.style.left = randomPosition() + "%";
+    noBtn.style.top = randomPosition() + "%";
+    noBtn.style.right = "auto";
+    noBtn.style.bottom = "auto";
+
+    yesBtn.style.fontSize = (18 + count * 5) + "px";
+    yesBtn.style.padding =
+      (14 + count * 2) + "px " + (28 + count * 4) + "px";
+
+    noBtn.style.fontSize = Math.max(10, 18 - count * 2) + "px";
+    noBtn.style.padding =
+      Math.max(6, 14 - count) + "px " +
+      Math.max(10, 28 - count * 2) + "px";
+  });
+
+  yesBtn.addEventListener("click", () => {
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:linear-gradient(135deg,#2d0b59,#4a148c);
+        color:white;
+        font-family:'Segoe UI',Arial;
+        text-align:center;
+        padding:24px;
+        font-size:22px;">
+        🌸 Thank you for saying yes 🌸<br><br>
+        I’m really glad I asked you.
+      </div>
+    `;
+  });
+</script>
+
+</body>
+</html>
